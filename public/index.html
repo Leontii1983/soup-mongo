@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container"></div>
+    <hr/>
+    <div id="containerID"></div>
+    <script>
+        let array = [];
+        let dataString = '';
+        fetch('http://localhost:3000/api/v1/soupes')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    //console.log(data.data.soupes);
+      let result = data.data.soupes;
+      result.forEach(element => {
+      array.push(element);  
+           });
+  for(let key in array) {
+    //console.log('Array key-name:', array[key]['name']);
+    dataString += '<p><strong>ID:</strong> ' + array[key]['_id'] + '</p>';
+    dataString += '<p><strong>Название:</strong> ' + array[key]['name'] + '</p>';
+    dataString += '<p><strong>Вес:</strong> ' + array[key]['weight'] + '</p>';
+    dataString += '<p><strong>Описание:</strong> ' + array[key]['description'] + '</p>'
+
+  }
+  document.querySelector('#container').innerHTML = dataString;
+})
+  
+  //console.log(array);
+  //console.log('This is:', dataString);
+   
+////////////////////////////////////////////////////////////////////////////////////////get by id
+  let arrayID = [];
+        let dataStringID = '';
+        fetch('http://localhost:3000/api/v1/soupes/6096d688a0ca1128a8963bdb')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+      //console.log(data);
+      let resultID = data.data.soupe;
+      //console.log(resultID);
+ 
+    dataStringID += '<p><strong>ID:</strong> ' + resultID._id + '</p>';
+    dataStringID += '<p><strong>Название:</strong> ' + resultID.name + '</p>';
+    dataStringID += '<p><strong>Вес:</strong> ' + resultID.weight + '</p>';
+    dataStringID += '<p><strong>Описание:</strong> ' + resultID.description + '</p>';
+
+  
+  document.querySelector('#containerID').innerHTML = dataStringID;
+})
+  
+
+</script>
+</body>
+</html>
